@@ -24,7 +24,27 @@ class GraphReader(object):
     def lineToIntArr(self, line):
         lineStrArr = line.split()
         lineIntArr = list(map(int, lineStrArr))
-        return lineIntArr
+        
+    #this part reindexes the nodes to start with node 0
+        if len(lineIntArr) == 3:
+            i = lineIntArr[0] - 1
+            j = lineIntArr[1] - 1
+            reIndex = [i, j, lineIntArr[2]]
+            return reIndex
+        else:
+            return lineIntArr
+        
+    #to not reindex the nodes, simply:
+        #return lineIntArr
+
+
+
+
+#squares = list(map(lambda x: x**2, range(10)))
+
+#or, equivalently:
+
+#squares = [x**2 for x in range(10)]
 
 
     #One line should be fast but less readable? 
