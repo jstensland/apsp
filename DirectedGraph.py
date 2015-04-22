@@ -30,8 +30,8 @@ class DirectedGraph(object):
     def negativeCycleCheck(self):
         negativeCycle = False
         for i in range(self.nodeCount):
-            if self.pathLengthsMatrix[i][i][self.nodeCount-1] != None:
-                if self.pathLengthsMatrix[i][i][self.nodeCount-1] < 0:
+            if self.pathLengthsMatrix[i][i][self.nodeCount % 2] != None:
+                if self.pathLengthsMatrix[i][i][self.nodeCount % 2] < 0:
                     negativeCycle = True
         return negativeCycle
 
@@ -39,9 +39,9 @@ class DirectedGraph(object):
         shortest = 100000000
         for i in range(self.nodeCount):
             for j in range(self.nodeCount):
-                if self.pathLengthsMatrix[i][j][self.nodeCount-1] != None:
-                    if self.pathLengthsMatrix[i][j][self.nodeCount-1] < shortest:
-                        shortest = self.pathLengthsMatrix[i][j][self.nodeCount-1]
+                if self.pathLengthsMatrix[i][j][self.nodeCount % 2] != None:
+                    if self.pathLengthsMatrix[i][j][self.nodeCount % 2] < shortest:
+                        shortest = self.pathLengthsMatrix[i][j][self.nodeCount % 2]
         return shortest
 
     def asapFloydWarshall(self):
@@ -50,7 +50,7 @@ class DirectedGraph(object):
         #k is round, starting with zero and including through all nodes
         #thus k is the new node being introduced, which can be found at k-1 in the array
         self.pathLengthsMatrix = [[[self.initializeArrayValue(i, j, k)
-                              for k in range(self.nodeCount + 1)] 
+                              for k in range(2)] 
                              for j in range(self.nodeCount)]
                             for i in range(self.nodeCount)]
         print("put in zeros and infinities")
@@ -58,7 +58,7 @@ class DirectedGraph(object):
         print("Matrix initialized")
         
         self.calculatePathLengthsMatrix()
- #       pprint.pprint(self.pathLengthsMatrix)
+#        pprint.pprint(self.pathLengthsMatrix)
 
     def initializeArrayValue(self, i, j, k):
         initialValue = None
@@ -74,28 +74,29 @@ class DirectedGraph(object):
 
     def calculatePathLengthsMatrix(self):
         for k in range(1, self.nodeCount + 1):
-##            print ("starting round: " + str(k))
             for i in range(self.nodeCount):
                 for j in range(self.nodeCount):
-##                   print ([i, j, k])
-                    self.pathLengthsMatrix[i][j][k] = self.newPathLength(i, j, k)
+##                    print ([i, j, k])
+                    self.pathLengthsMatrix[i][j][k % 2] = self.newPathLength(i, j, k)
 
 ##                    
 ##                    if i ==1  and j == 9 and k == 1:
-##                        pprint.pprint(self.pathLengthsMatrix)
+#                        pprint.pprint(self.pathLengthsMatrix)
 
 
     def newPathLength(self, i, j, k):
+        currentRound = k % 2
+ #       print (currentRound)
+        previousRound = (k - 1 ) % 2
+        
         #if nodes not connected and k doesn't connect them, still unconnected.
-        if self.pathLengthsMatrix[i][j][k-1] != None:
-            case1 = self.pathLengthsMatrix[i][j][k-1]
+        if self.pathLengthsMatrix[i][j][previousRound] != None:
+            case1 = self.pathLengthsMatrix[i][j][previousRound]
         else:
             case1 = None
-                #using k-1 for the middle node, because nodes are indexed starting at 0.
-                #So node 1 is at 0.
-                #but rounds are indexed with 0 being initial and going 1 through number of nodes 
-        if self.pathLengthsMatrix[i][k-1][k-1] != None and self.pathLengthsMatrix[k-1][j][k-1] != None:
-            case2 = self.pathLengthsMatrix[i][k-1][k-1] + self.pathLengthsMatrix[k-1][j][k-1]
+
+        if self.pathLengthsMatrix[i][k-1][previousRound] != None and self.pathLengthsMatrix[k-1][j][previousRound] != None:
+            case2 = self.pathLengthsMatrix[i][k-1][previousRound] + self.pathLengthsMatrix[k-1][j][previousRound]
         else:
             case2 = None
 

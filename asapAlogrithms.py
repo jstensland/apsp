@@ -15,7 +15,7 @@ graphReader = GraphReader.GraphReader()
 #       'test_cases/g2.txt'
 #       'test_cases/g3.txt'
 
-file =  'test_cases/5test_larger_-7.txt'
+file =  'test_cases/6test_larger_-2.txt'
 print ('File: ' + file)
 headerSize = 1
 header = graphReader.readHeader(file, headerSize) # [nodeCount, edgeCount]
