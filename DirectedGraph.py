@@ -76,6 +76,8 @@ class DirectedGraph(object):
 
     def calculatePathLengthsMatrix(self):
         for k in range(1, self.nodeCount + 1):
+            if k % 10 == 0:
+                print ("round:" + str(k))
             for i in range(self.nodeCount):
                 for j in range(self.nodeCount):
 ##                    print ([i, j, k])
