@@ -10,7 +10,9 @@ class DirectedGraph(object):
         self.edgeList = edgeList
         self.nodeCount = nodeCount
         self.edgeCount = edgeCount
+        
         self.pathLengthsMatrix = []
+        self.finalPathsIndex = self.nodeCount % 2
 
     def __str__(self):
         edgeStrList = list(map(str, self.edgeList))
@@ -30,8 +32,8 @@ class DirectedGraph(object):
     def negativeCycleCheck(self):
         negativeCycle = False
         for i in range(self.nodeCount):
-            if self.pathLengthsMatrix[i][i][self.nodeCount % 2] != None:
-                if self.pathLengthsMatrix[i][i][self.nodeCount % 2] < 0:
+            if self.pathLengthsMatrix[i][i][self.finalPathsIndex] != None:
+                if self.pathLengthsMatrix[i][i][self.finalPathsIndex] < 0:
                     negativeCycle = True
         return negativeCycle
 
@@ -39,9 +41,9 @@ class DirectedGraph(object):
         shortest = 100000000
         for i in range(self.nodeCount):
             for j in range(self.nodeCount):
-                if self.pathLengthsMatrix[i][j][self.nodeCount % 2] != None:
-                    if self.pathLengthsMatrix[i][j][self.nodeCount % 2] < shortest:
-                        shortest = self.pathLengthsMatrix[i][j][self.nodeCount % 2]
+                if self.pathLengthsMatrix[i][j][self.finalPathsIndex] != None:
+                    if self.pathLengthsMatrix[i][j][self.finalPathsIndex] < shortest:
+                        shortest = self.pathLengthsMatrix[i][j][self.finalPathsIndex]
         return shortest
 
     def asapFloydWarshall(self):
