@@ -1,7 +1,6 @@
 import GraphReader
 import DirectedGraph
 
-
 graphReader = GraphReader.GraphReader()
 
 #cases: 'test_cases/1test_-10003.txt'
@@ -15,7 +14,7 @@ graphReader = GraphReader.GraphReader()
 #       'test_cases/g2.txt'
 #       'test_cases/g3.txt'
 
-file = 'test_cases/g1.txt'
+file = 'test_cases/4test_larger_negativeCycle.txt'
 print ('File: ' + file)
 headerSize = 1
 header = graphReader.readHeader(file, headerSize) # [nodeCount, edgeCount]
@@ -30,7 +29,9 @@ print (graph.findShortestShortestPath())
 
 #print (graph)
 
-
+import cProfile
+import re
+cProfile.run('graph.findShortestShortestPath()')
 
 
 #print ([method for method in dir(graph) if callable(getattr(graph, method))])
