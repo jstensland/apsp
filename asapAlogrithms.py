@@ -9,12 +9,13 @@ graphReader = GraphReader.GraphReader()
 #       'test_cases/4test_larger_negativeCycle.txt'
 #       'test_cases/5test_larger_-7.txt'
 #       'test_cases/6test_larger_-2.txt'
+#       'test_cases/hwQ4test.txt'
 
 #       'test_cases/g1.txt'
 #       'test_cases/g2.txt'
 #       'test_cases/g3.txt'
 
-file = 'test_cases/hwQ4test.txt'
+file = 'test_cases/5test_larger_-7.txt'
 print('File: ' + file)
 headerSize = 1
 header = graphReader.readHeader(file, headerSize)  # [nodeCount, edgeCount]

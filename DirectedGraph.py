@@ -30,8 +30,7 @@ class DirectedGraph(object):
         def negativeCycleCheck(self):
             negativeCycle = False
             for i in range(self.nodeCount):
-                if self.pathLengthsMatrix[i][i][self.finalPathsIndex]
-                is not None:
+                if self.pathLengthsMatrix[i][i][self.finalPathsIndex] is not None:
                     if self.pathLengthsMatrix[i][i][self.finalPathsIndex] < 0:
                         negativeCycle = True
             return negativeCycle
